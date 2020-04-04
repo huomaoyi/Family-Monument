@@ -1,0 +1,73 @@
+<!--index.wxml-->
+<view class="page">
+<view class="cover-container" wx:if="{{!show}}">
+<view class="cover-title">{{coverTitle}}</view>
+<view class="cover-content">{{coverContent}}</view>
+</view>
+  <view wx:else>
+    <!-- <view class="title">{{title}}</view> -->
+    <view class="container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+      <view wx:if="{{!userInfoFlagYes}}" class="userinfo-button">
+        <button class="user-info-btn" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo"></button>
+      </view>
+
+      <form class="card-container" bindsubmit="submitPersonInfo">
+        <input class="name" placeholder-style="color:white" name="name" disabled="{{person.disabled}}" placeholder="请输入逝者姓名..." value="{{currentName}}"></input>
+        <view class="live">
+          <view class="time-text">生于:</view>
+          <view>
+            <picker mode="date" name="birthDate" value="{{currentBirthDate}}" disabled="{{person.disabled}}" bindchange="bindBirthDateChange">
+              <input placeholder="请选择时间..." placeholder-style="color:white" value="{{currentBirthDate}}"></input>
+            </picker>
+          </view>
+        </view>
+        <view class="live">
+          <view class="time-text">逝于:</view>
+          <view>
+            <picker mode="date" name="lostDate" value="{{currentLostDate}}" disabled="{{person.disabled}}" bindchange="bindLostDateChange">
+              <input placeholder="请选择时间..." placeholder-style="color:white" value="{{currentLostDate}}"></input>
+            </picker>
+          </view>
+        </view>
+        <view class="word">
+          <textarea class="word-text" name="missWords" value="{{currentMissWords}}" disabled="{{person.disabled}}" placeholder-style="color:white" placeholder="请输入您的悼词..."></textarea>
+        </view>
+        <view class="action-container">
+          <view>
+            <view class="action">
+              <view>{{person.newFlower}}/{{person.flower}}</view>
+              <view catchtap="sendFlower">献花</view>
+            </view>
+            <view class="action">
+              <view>{{person.newIncense}}/{{person.incense}}</view>
+              <view catchtap="sendIncense">上香</view>
+            </view>
+          </view>
+          <view>
+            <view class="action">
+              <view>{{person.newCandle}}/{{person.candle}}</view>
+              <view catchtap="sendCandle">点烛</view>
+            </view>
+            <view class="action">
+              <view>{{person.newTribute}}/{{person.tribute}}</view>
+              <view catchtap="sendTribute">贡品</view>
+            </view>
+          </view>
+        </view>
+        <view class="send-action" catchtap="sendMissOperate">送出您的沉痛的哀思</view>
+        <view class="operator-container">
+          <button catchtap="addEmptyMissed">添加</button>
+          <!-- <button form-type="submit" hidden="{{!person.disabled}}">修改</button> -->
+          <button form-type="submit" hidden="{{person.disabled}}">保存</button>
+          <!-- <button catchtap="goSquare">广场</button> -->
+          <button open-type="share" hover-class='none'>分享</button>
+        </view>
+      </form>
+    </view>
+
+    <view class="logo">
+      <view class="copyright-view">{{copyright}}</view>
+    </view>
+  </view>
+
+</view>
